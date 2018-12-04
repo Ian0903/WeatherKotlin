@@ -5,12 +5,10 @@ import kotlin.reflect.KProperty
 
 object DelegatesExt{
 
-    fun notNullSingleValue<T>(){
-        ReadWriteProperty<Any?,T> = NotNullSingleValueVal<T>()
-    }
+    fun <T> notNullSingleValue() : ReadWriteProperty<Any?,T> = NotNullSingleValueVal()
 }
 
-private class NotNullSingleValueVal<T>() : ReadWriteProperty<Any?,T>{
+private class NotNullSingleValueVal<T> : ReadWriteProperty<Any?,T>{
 
     private var value : T? = null
 
