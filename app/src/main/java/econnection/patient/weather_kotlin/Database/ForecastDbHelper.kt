@@ -1,10 +1,11 @@
 package econnection.patient.weather_kotlin.Database
 
+import android.content.Context
 import android.database.sqlite.SQLiteDatabase
 import econnection.patient.weather_kotlin.Util.App
 import org.jetbrains.anko.db.*
 
-class ForecastDbHelper() : ManagedSQLiteOpenHelper(App.instance,ForecastDbHelper.DB_NAME,null,ForecastDbHelper.DB_VERSION){
+class ForecastDbHelper(ctx : Context = App.instance) : ManagedSQLiteOpenHelper(ctx,ForecastDbHelper.DB_NAME,null,ForecastDbHelper.DB_VERSION){
 
 
     override fun onCreate(db: SQLiteDatabase) {
@@ -23,8 +24,10 @@ class ForecastDbHelper() : ManagedSQLiteOpenHelper(App.instance,ForecastDbHelper
             DayForecastTable.CITY_ID to INTEGER)
     }
 
-    override fun onUpgrade(p0: SQLiteDatabase?, p1: Int, p2: Int) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    override fun onUpgrade(db: SQLiteDatabase, p1: Int, p2: Int) {
+        db.dropTable(CityForecastTable.NAME,true)
+        db.dropTable(DayForecastTable.NAME,true)
+        onCreate(db)
     }
 
 
